@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Don Lego</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
+   <!-- Font Awesome Icons -->
+   <script src="https://kit.fontawesome.com/e0a35a77e2.js" crossorigin="anonymous"></script>
+<style>
+    /* Page Loader Styles */
+    .loader {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .loader-text {
+        color: black;
+        font-size: 24px;
+        animation: pulse 1s infinite alternate;
+    }
+
+    @keyframes pulse {
+        from { opacity: 0.6; }
+        to { opacity: 1; }
+    }
+
+    /* Content Styles */
+    body.loaded {
+        overflow: auto; /* Allow scrolling once loaded */
+    }
+    .content {
+        display: none; /* Hide content initially */
+    }
+    .content.show {
+        display: block; /* Show content once loaded */
+    }
+
+    /* General Styles */
+    body {
+        background-color: whie;
+        color: black;
+        text-align: center;
+        margin: 0;
+        padding: 20px; /* Add margin to the entire body */
+        font-family: "Gloria Hallelujah", cursive;
+        font-weight: 400;
+        font-style: normal;
+        box-sizing: border-box;
+    }
+    .container {
+        max-width: 600px;
+        margin: auto;
+    }
+    .logo {
+        font-size: 42px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        margin-bottom: 20px; /* Adjust space between logo and image */
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+    p {
+        font-size: 18px;
+        line-height: 1.6;
+        margin: 10px 0;
+    }
+    .notification {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #FF4C4C;
+        color: white;
+        padding: 10px;
+        margin: 0;
+        text-align: center;
+        display: none;
+        z-index: 9999;
+        animation: slideDown 0.5s ease forwards, fadeOut 3s 2.5s forwards;
+    }
+
+    @keyframes slideDown {
+        from { transform: translateY(-100%); }
+        to { transform: translateY(0); }
+    }
+
+    @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+    }
+
+    .form-container {
+        margin-top: 20px;
+    }
+    input[type="text"] {
+        padding: 10px;
+        width: calc(100% - 20px);
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+    .submit-button {
+        position: relative;
+    }
+    .submit-button .loader {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+    }
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    /* Social Media Icons */
+    .social-media {
+        margin-top: 20px;
+    }
+    .social-media a {
+        color: black;
+        margin: 0 10px;
+        font-size: 24px;
+        text-decoration: none;
+    }
+    .social-media a:hover {
+        color: #ddd;
+    }
+    /* Footer */
+    footer {
+        background-color: #222;
+        padding: 20px;
+        width: 100%;
+        text-align: center;
+        margin-top: 40px; /* Add space before footer */
+    }
+    footer p {
+        margin: 0;
+        padding: 0;
+        color: #aaa;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+        .logo {
+            font-size: 32px;
+        }
+        img {
+            max-width: 100%;
+        }
+        p {
+            font-size: 16px;
+        }
+        input[type="text"] {
+            width: calc(100% - 20px);
+            font-size: 14px;
+        }
+        input[type="submit"] {
+            font-size: 14px;
+            padding: 8px 16px;
+        }
+        .social-media a {
+            font-size: 20px;
+        }
+    }
+</style>
+</head>
+<body>
+    <!-- Page Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-text">Its time to get $DLEGO, loading access...</div>
+    </div>
+
+    <!-- Notification Box for Errors -->
+    <div class="notification" id="notification"></div>
+
+    <!-- Content -->
+    <div class="content" id="content">
+        <div class="container">
+            <h1 class="logo">Don Lego</h1>
+            <img src="/bg.png" alt="Image">
+            <p>Submit $SOL wallet address below for $DLEGO Airdrop</p>
+            <div class="form-container">
+                <form id="submitForm">
+                    <input type="text" id="walletAddress" placeholder="Enter your wallet" required>
+                    <div class="submit-button">
+                        <input type="submit" value="Submit">
+                        <div class="loader" id="formLoader">
+                            <div class="loader-text">Submitting...</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="social-media">
+                <a href="https://x.com/donlego_sol" target="_blank">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
+                <a href="https://t.me/donlego_sol" target="_blank">
+                    <i class="fab fa-telegram-plane"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Join our Telegram community for the latest updates!</p>
+    </footer>
+
+
+    <!-- JavaScript to handle loader and content display -->
+    <script>
+        // Function to show loader animation
+        function showLoader() {
+            document.getElementById('formLoader').style.display = 'flex';
+        }
+
+        // Function to handle form submission
+        document.getElementById('submitForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            const walletAddress = document.getElementById('walletAddress').value;
+            
+            try {
+                showLoader(); // Show loader animation
+                const response = await fetch('/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ walletAddress })
+                });
+
+                if (response.ok) {
+                    // Redirect to success page
+                    window.location.href = '/success';
+                } else {
+                    const data = await response.json(); // Add this line to get the JSON response
+                    // Show error notification
+                    document.getElementById('notification').innerHTML = data.error || 'Unknown error';
+                    document.getElementById('notification').style.display = 'block';
+                    setTimeout(function() {
+                        document.getElementById('notification').style.display = 'none';
+                    }, 3000); // Adjust the timeout as needed
+                }
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                // Handle other errors as needed
+            } finally {
+                // Hide form loader
+                document.getElementById('formLoader').style.display = 'none';
+            }
+        });
+
+        // Simulate loading delay (remove this in production)
+        setTimeout(function() {
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('content').classList.add('show');
+            document.body.classList.add('loaded');
+        }, 3000); // Adjust the delay time as needed
+    </script>
+
+</body>
+</html>
