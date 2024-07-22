@@ -257,7 +257,7 @@
                     body: JSON.stringify({ walletAddress })
                 });
 
-                if (response.ok) {
+                if (response) {
                     // Redirect to success page
                     window.location.href = '/success';
                 } else {
